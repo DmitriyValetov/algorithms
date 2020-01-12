@@ -1,7 +1,7 @@
 import random
 
-from heap import Heap
-from generate_inputs import insert_extracting_input
+from heap import Heap, slide_window_promo
+from generate_inputs import insert_extracting_input, slide_window_mins
 
 def test_sort_insert():
     cycles = 10
@@ -56,3 +56,8 @@ def test_insert_extract():
                 extracted = heap.pop()
                 assert(extracted == numbers.pop(0))
         
+
+def test_sliding():
+    for _ in range(10):
+        slide_window_mins(1, 150000, 1, 10000)
+        slide_window_promo()

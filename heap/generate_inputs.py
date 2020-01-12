@@ -38,6 +38,24 @@ def insert_extracting_input(n_max=100, N=100):
     with open(file='input.txt', mode='w') as f:
         f.writelines(lines)
 
+
+def slide_window_mins(N_min, N_max, K_min, K_max):
+    N = random.randint(N_min, N_max)
+    K = random.randint(K_min, K_max)
+    if K > N:
+        k = N
+        
+    numbers = [random.randint(0, 100) for _ in range(N)]
+
+    lines = []
+    lines.append(f"{N} {K}\n")
+    lines.append(" ".join(map(str, numbers)))
+
+    with open(file='input.txt', mode='w') as f:
+        f.writelines(lines)
+
+
 if __name__ == "__main__":
     # sorting_input()
-    insert_extracting_input()
+    # insert_extracting_input()
+    slide_window_mins(10, 100, 10, 15)

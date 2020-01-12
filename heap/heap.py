@@ -76,11 +76,11 @@ class Heap:
 
 
     def buildHeap(self, arr, alg='insert'):
-        if alg == 'insert': # -
+        if alg == 'insert':
             for el in arr:
                 self.add(el)
 
-        elif alg == 'sift_up': # -
+        elif alg == 'sift_up':
             self.list = arr.copy()
             for i in range(len(self)):
                 self.Sift_Up(i)
@@ -169,27 +169,40 @@ def insert_extract():
     with open(file="input.txt", mode='r') as f:
         lines = f.readlines()
 
-    # numbers = []
     extracted = []
     heap = Heap(type='max')
     for line in lines[1:]:
         if line[0] == '0':
             new_number = int(line.split()[1])
-            # numbers.append(new_number)
-            # numbers.sort(reverse=True)
             heap.add(new_number)
-            # if heap.list[0] != numbers[0]:
-            #     print('error after add')
         elif line[0] == '1':
             extracted.append(heap.pop())
-            # if extracted[-1] != numbers.pop(0):
-            #     print('error after extract')
 
     with open(file="output.txt", mode='w') as f:
         f.write(" ".join(map(str, extracted)))
 
 
+def split(arr, size):
+    arrs = []
+    i = 0
+    while i+size <= len(arr):
+        arrs.append(arr[i:i+size])
+        i += 1
+    return arrs
+
+def slide_window_promo():
+    with open(file="input.txt", mode='r') as f:
+        lines = f.readlines()
+
+    K = int(lines[0].split()[1])
+    numbers = list(map(int, lines[1].split()))
+    mins = [min(pack) for pack in split(numbers, K)]
+
+    with open(file="output.txt", mode='w') as f:
+        f.write(" ".join(map(str, mins)))
+
+
 if __name__ == "__main__":
     # sort1()
-    insert_extract()
-    # insert_extract_promo()
+    # insert_extract()
+    slide_window_promo()
