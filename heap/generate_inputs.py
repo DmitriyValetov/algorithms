@@ -1,6 +1,7 @@
 import random
 import numpy as np
 
+from heap import split
 
 def sorting_input():
     N = 10
@@ -40,12 +41,12 @@ def insert_extracting_input(n_max=100, N=100):
 
 
 def slide_window_mins(N_min, N_max, K_min, K_max):
-    N = random.randint(N_min, N_max)
-    K = random.randint(K_min, K_max)
+    N = 150000 # random.randint(N_min, N_max)
+    K = 3 # random.randint(K_min, K_max)
     if K > N:
         k = N
         
-    numbers = [random.randint(0, 100) for _ in range(N)]
+    numbers = [random.randint(0, 10000) for _ in range(N)]
 
     lines = []
     lines.append(f"{N} {K}\n")
@@ -58,4 +59,4 @@ def slide_window_mins(N_min, N_max, K_min, K_max):
 if __name__ == "__main__":
     # sorting_input()
     # insert_extracting_input()
-    slide_window_mins(10, 100, 10, 15)
+    slide_window_mins(10, 11, 3, 4)

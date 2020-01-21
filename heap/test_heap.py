@@ -1,6 +1,6 @@
 import random
 
-from heap import Heap, slide_window_promo
+from heap import Heap, slide_window_promo, split, slide_window_process_by_min_heap, slide_window_process_by_promo
 from generate_inputs import insert_extracting_input, slide_window_mins
 
 def test_sort_insert():
@@ -57,7 +57,36 @@ def test_insert_extract():
                 assert(extracted == numbers.pop(0))
         
 
-def test_sliding():
-    for _ in range(10):
+def test_list_split():
+    for _ in range(100):
+        N = random.randint(1, 100)
+        K = random.randint(1, 100)
+        if K > N:
+            K = N
+        arr = [i for i in range(N)]
+        arrs = split(arr, K)
+        assert(len(arrs)==N-K+1)
+
+def test_list_split2():
+    N = 100
+    K = N
+    arr = [i for i in range(N)]
+    arrs = split(arr, K)
+    assert(len(arrs)==N-K+1)
+    assert(len(arrs)==1)
+    assert(min(arr) == min(arrs[0]))
+
+
+def test_sliding_promo():
+    for _ in range(1):
         slide_window_mins(1, 150000, 1, 10000)
         slide_window_promo()
+
+def test_slide_window_min_heap_vs_promo():
+    for _ in range(10):
+        slide_window_mins(1, 10000, 1, 10000)
+        with open(file="input.txt", mode='r') as f:
+            lines = f.readlines()
+        heap_mins = slide_window_process_by_min_heap(lines)
+        promo_mins = slide_window_process_by_promo(lines)
+        assert(heap_mins == promo_mins)

@@ -90,6 +90,8 @@ class Heap:
             for i in range(len(self)-1, -1, -1):
                 self.Sift_Down(i)
 
+        return self
+
 
     def changePriority(self, i, newValue):
         if self.list[i] > newValue:
@@ -190,14 +192,44 @@ def split(arr, size):
         i += 1
     return arrs
 
-def slide_window_promo():
-    with open(file="input.txt", mode='r') as f:
-        lines = f.readlines()
+def split_gen(arr, size):
+    arrs = []
+    i = 0
+    while i+size <= len(arr):
+        i += 1
+        yield arr[i:i+size]
 
+def slide_window_process_by_promo(lines):
     K = int(lines[0].split()[1])
     numbers = list(map(int, lines[1].split()))
     mins = [min(pack) for pack in split(numbers, K)]
+    return mins
 
+def slide_window_process_by_promo_gen(lines):
+    K = int(lines[0].split()[1])
+    numbers = list(map(int, lines[1].split()))
+    mins = [min(pack) for pack in split(numbers, K)]
+    return mins
+
+def slide_window_promo():
+    with open(file="input.txt", mode='r') as f:
+        lines = f.readlines()
+    mins = slide_window_process_by_promo_gen(lines)
+    with open(file="output.txt", mode='w') as f:
+        f.write(" ".join(map(str, mins)))
+
+
+def slide_window_process_by_min_heap(lines):
+    K = int(lines[0].split()[1])
+    numbers = list(map(int, lines[1].split()))
+    packs = split(numbers, K)
+    mins = [ Heap('min').buildHeap(pack, alg='sift_down').pop() for pack in packs]
+    return mins
+
+def slide_window_min_heap():
+    with open(file="input.txt", mode='r') as f:
+        lines = f.readlines()
+    mins = slide_window_process_by_min_heap(lines)
     with open(file="output.txt", mode='w') as f:
         f.write(" ".join(map(str, mins)))
 
@@ -206,3 +238,5 @@ if __name__ == "__main__":
     # sort1()
     # insert_extract()
     slide_window_promo()
+    # slide_window_min_heap()
+
